@@ -85,22 +85,78 @@ section>*{position:relative;z-index:1}
   transition:width .08s linear;pointer-events:none;
 }
 
-.music-btn{
-  position:fixed;bottom:22px;right:22px;width:48px;height:48px;
-  border-radius:50%;background:rgba(0,0,0,.85);
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  border:1px solid rgba(148,129,51,.3);color:var(--gold);font-size:18px;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;z-index:999;
-  box-shadow:0 4px 24px rgba(0,0,0,.5),0 0 0 1px rgba(148,129,51,.08);
-  transition:all .3s var(--spring);
+/* ── BOTÓN MÚSICA · DISCO DE VINILO ────── */
+.vinyl-btn{
+  position:fixed;bottom:20px;right:20px;z-index:999;
+  width:66px;height:66px;border-radius:50%;padding:0;
+  border:none;cursor:pointer;background:transparent;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1);
+  box-shadow:0 4px 18px rgba(0,0,0,.5),0 0 0 1px rgba(148,129,51,.22);
 }
-.music-btn:active{transform:scale(.88)}
-.music-btn.on{border-color:var(--gold);background:rgba(148,129,51,.14);
-  animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(148,129,51,.35),0 4px 24px rgba(0,0,0,.5)}
-  50%{box-shadow:0 0 0 10px rgba(148,129,51,0),0 4px 24px rgba(0,0,0,.5)}
+.vinyl-btn:active{transform:scale(.9)}
+.vinyl-spin{width:100%;height:100%;border-radius:50%;position:relative;transition:none}
+.vinyl-btn.is-playing .vinyl-spin{animation:vinylSpin 1.8s linear infinite}
+@keyframes vinylSpin{to{transform:rotate(360deg)}}
+.vinyl-disc{width:100%;height:100%;border-radius:50%;overflow:hidden;position:relative;
+  background:
+    radial-gradient(circle,#0e0d0b 4%,transparent 4.5%),
+    radial-gradient(circle,#c9b26a 0%,#948133 13%,#6e020f 17%,#3a0208 19%,transparent 19.5%),
+    repeating-radial-gradient(circle,
+      transparent 20%,rgba(201,178,106,.10) 20.8%,transparent 21.5%,
+      transparent 24%,rgba(255,255,255,.04) 24.8%,transparent 25.5%,
+      transparent 28%,rgba(201,178,106,.08) 28.8%,transparent 29.5%,
+      transparent 32%,rgba(255,255,255,.04) 32.8%,transparent 33.5%,
+      transparent 36%,rgba(201,178,106,.10) 36.8%,transparent 37.5%,
+      transparent 40%,rgba(255,255,255,.04) 40.8%,transparent 41.5%,
+      transparent 44%,rgba(201,178,106,.08) 44.8%,transparent 45.5%,
+      transparent 48%,rgba(255,255,255,.04) 48.8%,transparent 49.5%,
+      transparent 52%,rgba(201,178,106,.10) 52.8%,transparent 53.5%,
+      transparent 56%,rgba(255,255,255,.04) 56.8%,transparent 57.5%,
+      transparent 60%,rgba(201,178,106,.08) 60.8%,transparent 61.5%,
+      transparent 64%,rgba(255,255,255,.04) 64.8%,transparent 65.5%,
+      transparent 68%,rgba(201,178,106,.10) 68.8%,transparent 69.5%,
+      transparent 72%,rgba(255,255,255,.04) 72.8%,transparent 73.5%,
+      transparent 76%,rgba(201,178,106,.08) 76.8%,transparent 77.5%,
+      transparent 80%,rgba(255,255,255,.04) 80.8%,transparent 81.5%,
+      transparent 84%,rgba(201,178,106,.10) 84.8%,transparent 85.5%,
+      transparent 88%,rgba(255,255,255,.04) 88.8%,transparent 89.5%,
+      transparent 92%,rgba(201,178,106,.08) 92.8%,transparent 93.5%,
+      transparent 96%,rgba(255,255,255,.04) 96.8%,transparent 97.5%
+    ),
+    radial-gradient(circle,#0e0d0b 0%,#181510 60%,#0e0d0b 100%);
+  box-shadow:inset 0 0 8px rgba(0,0,0,.5);
+}
+.vinyl-sheen{position:absolute;inset:0;border-radius:50%;
+  background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,.08) 42%,rgba(255,255,255,.14) 48%,rgba(255,255,255,.08) 54%,transparent 66%);
+  pointer-events:none}
+.vinyl-label-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-family:'Great Vibes',cursive;font-size:12px;color:#fafafa;
+  text-align:center;line-height:1.1;opacity:.95;pointer-events:none;width:26px;
+  text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.vinyl-label-text small{font-family:'Raleway',sans-serif;font-size:5px;letter-spacing:.15em;display:block;margin-top:1px;opacity:.75}
+.vinyl-hole{position:absolute;top:50%;left:50%;width:6px;height:6px;transform:translate(-50%,-50%);
+  border-radius:50%;background:#0e0d0b;box-shadow:0 0 0 1.5px rgba(148,129,51,.55)}
+.vinyl-icons{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:17px;height:17px;pointer-events:none;z-index:2}
+.vinyl-icons svg{width:100%;height:100%;display:block;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}
+.vinyl-icon-pause{display:none}
+.vinyl-btn.is-playing .vinyl-icon-play{display:none}
+.vinyl-btn.is-playing .vinyl-icon-pause{display:block}
+.vinyl-btn::after{content:"";position:absolute;inset:-5px;border-radius:50%;
+  border:1px solid var(--gold);opacity:.3;animation:vinylPulse 3s ease-in-out infinite}
+.vinyl-btn.is-playing::after{animation-duration:1.6s}
+@keyframes vinylPulse{0%,100%{transform:scale(1);opacity:.3}50%{transform:scale(1.12);opacity:.05}}
+.vinyl-tonearm{position:absolute;top:-4px;right:-2px;width:24px;height:34px;
+  transform-origin:top right;transform:rotate(-28deg);
+  transition:transform .6s cubic-bezier(.2,.7,.2,1);pointer-events:none;z-index:1}
+.vinyl-btn.is-playing .vinyl-tonearm{transform:rotate(-12deg)}
+.vinyl-tonearm-line{position:absolute;top:2px;right:4px;width:2px;height:28px;
+  background:linear-gradient(to bottom,#7a6a2a,#c9b26a 40%,#7a6a2a);border-radius:1px;transform:rotate(-5deg);transform-origin:top center}
+.vinyl-tonearm-head{position:absolute;bottom:0;right:2px;width:5px;height:6px;background:#948133;border-radius:0 0 2px 2px}
+.vinyl-tonearm-pivot{position:absolute;top:0;right:2px;width:7px;height:7px;
+  background:radial-gradient(circle,#c9b26a,#7a6a2a);border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,.4)}
+@media (prefers-reduced-motion:reduce){
+  .vinyl-btn.is-playing .vinyl-spin{animation:none}
+  .vinyl-btn::after{animation:none}
 }
 
 #toast{
@@ -822,7 +878,7 @@ section>*{position:relative;z-index:1}
 
 <!-- ENVELOPE SCREEN -->
 <div id="envelope-screen" role="button" aria-label="Toca para abrir tu invitación">
-  <img id="env-image" src="sobre.png" alt="Sobre invitación Nora &amp; Francisco" />
+  <img id="env-image" src="sobre.jpg" alt="Sobre invitación Nora &amp; Francisco" />
   <video id="env-video" src="sobre-apertura.mp4" playsinline webkit-playsinline muted preload="auto"></video>
   <p class="envelope-hint" id="env-hint">Toca para abrir</p>
 </div>
@@ -835,7 +891,24 @@ section>*{position:relative;z-index:1}
   <source src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/audio/boda-francisco-y-nora/cancion.mp3" type="audio/mpeg">
 </audio>
 
-<button class="music-btn" id="musicBtn" onclick="toggleMusic()" aria-label="Música">♪</button>
+<button id="musicBtn" class="vinyl-btn" onclick="toggleMusic()" type="button" aria-label="Música de la invitación">
+  <div class="vinyl-tonearm">
+    <div class="vinyl-tonearm-pivot"></div>
+    <div class="vinyl-tonearm-line"></div>
+    <div class="vinyl-tonearm-head"></div>
+  </div>
+  <div class="vinyl-spin">
+    <div class="vinyl-disc">
+      <div class="vinyl-sheen"></div>
+      <div class="vinyl-label-text">N&amp;F<small>2026</small></div>
+      <div class="vinyl-hole"></div>
+    </div>
+  </div>
+  <div class="vinyl-icons">
+    <svg class="vinyl-icon-play" viewBox="0 0 24 24" fill="#fafafa" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+    <svg class="vinyl-icon-pause" viewBox="0 0 24 24" fill="#fafafa" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+  </div>
+</button>
 
 <div id="toast"></div>
 
@@ -1417,8 +1490,7 @@ function startMusicOnOpen() {
   var mBtn = document.getElementById('musicBtn');
   aud.play().then(function() {
     playing = true;
-    mBtn.innerHTML = '♬';
-    mBtn.classList.add('on');
+    mBtn.classList.add('is-playing');
   }).catch(function() {});
 }
 
@@ -1739,8 +1811,8 @@ const mBtn = document.getElementById('musicBtn');
 let playing = false;
 
 function toggleMusic() {
-  if (playing) { aud.pause(); mBtn.innerHTML='♪'; mBtn.classList.remove('on'); }
-  else { aud.play().catch(()=>{}); mBtn.innerHTML='♬'; mBtn.classList.add('on'); }
+  if (playing) { aud.pause(); mBtn.classList.remove('is-playing'); }
+  else { aud.play().catch(()=>{}); mBtn.classList.add('is-playing'); }
   playing = !playing;
 }
 
