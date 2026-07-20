@@ -21,6 +21,9 @@
   --gold:      #948133;
   --gold-lt:   #C9B26A;
   --gold-dim:  rgba(148,129,51,.15);
+  --wine:      #6e020f;
+  --wine-lt:   #a8283a;
+  --blue:      #0e0e77;
   --cream:     #F5F0E8;
   --ink:       #0A0908;
   --ink2:      #181610;
@@ -189,12 +192,14 @@ section>*{position:relative;z-index:1}
 .h-ov{
   position:absolute;inset:0;z-index:1;
   background:
+    radial-gradient(ellipse at 50% 82%, rgba(110,2,15,.42) 0%, transparent 55%),
+    radial-gradient(ellipse at 15% 12%, rgba(14,14,119,.28) 0%, transparent 50%),
     radial-gradient(ellipse at 50% 30%, rgba(10,9,8,.3) 0%, transparent 60%),
     linear-gradient(to bottom,
       rgba(0,0,0,.6) 0%,
       rgba(0,0,0,.12) 30%,
       rgba(0,0,0,.12) 55%,
-      rgba(0,0,0,.78) 100%);
+      rgba(0,0,0,.82) 100%);
 }
 .h-frame{
   position:absolute;top:22px;left:22px;right:22px;bottom:22px;
@@ -426,6 +431,25 @@ section>*{position:relative;z-index:1}
 }
 .pal-sw:active{transform:scale(1.18)!important}
 .pal-nm{font-size:clamp(8px,2.2vw,10px);letter-spacing:1.5px;text-transform:uppercase;color:var(--cream);opacity:.5}
+/* ── PRISMA "COLORES A EVITAR" (elegante, no semáforo) ── */
+.avoid-prism{
+  display:flex;max-width:300px;margin:0 auto;height:56px;
+  border-radius:12px;overflow:hidden;position:relative;
+  border:1px solid rgba(148,129,51,.5);
+  box-shadow:0 10px 28px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.14);
+}
+.avoid-prism::after{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:2;
+  background:linear-gradient(180deg,rgba(255,255,255,.24),transparent 42%,rgba(0,0,0,.28));
+}
+.avoid-seg{flex:1;background:var(--c);will-change:transform}
+.avoid-seg+.avoid-seg{box-shadow:-1px 0 0 rgba(10,9,8,.4)}
+.avoid-labels{display:flex;max-width:300px;margin:12px auto 0}
+.avoid-labels span{
+  flex:1;text-align:center;font-family:'Cormorant Garamond',serif;
+  font-size:clamp(13px,3.4vw,15px);letter-spacing:2px;text-transform:uppercase;
+  color:var(--cream);opacity:.8;font-weight:500;
+}
 .dc-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
 .dc-col{background:#ffffff;border:1px solid rgba(255,255,255,.9);border-radius:14px;padding:24px 14px 18px;text-align:center;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-height:300px;box-shadow:0 8px 32px rgba(0,0,0,.22)}
 .dc-col::before{content:none}
@@ -470,6 +494,32 @@ section>*{position:relative;z-index:1}
   background:linear-gradient(to right,transparent,rgba(148,129,51,.2),transparent);
   margin:clamp(18px,5vw,26px) auto;
 }
+
+/* ── CRUZ ELEGANTE (padres finados) ────── */
+.fam-cross{
+  width:11px;height:auto;vertical-align:baseline;
+  margin-left:6px;position:relative;top:1px;
+  filter:drop-shadow(0 0 5px rgba(148,129,51,.45));
+}
+.fam-cross path{fill:var(--gold)}
+
+/* ── PADRINOS · CARRUSEL (estilo roxana-omar) ── */
+.padrinos-carousel{position:relative;max-width:360px;margin:8px auto 0}
+.padrinos-viewport{overflow:hidden}
+.padrinos-track{display:flex;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.padrino-slide{flex:0 0 100%;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;text-align:center;padding:14px 34px}
+.padrino-icon{width:66px;height:66px;margin-bottom:18px;filter:drop-shadow(0 0 10px rgba(148,129,51,.25))}
+.padrino-icon svg{width:100%;height:100%;fill:none;stroke:var(--gold);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.padrino-rol{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:14px}
+.padrino-names{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;line-height:1.6;color:var(--cream)}
+.padrinos-arrow{position:absolute;top:33px;transform:translateY(-50%);width:38px;height:38px;display:flex;align-items:center;justify-content:center;background:rgba(10,9,8,.5);border:1px solid rgba(148,129,51,.25);border-radius:50%;cursor:pointer;color:var(--gold);z-index:2;padding:0;transition:transform .25s,border-color .25s}
+.padrinos-arrow:active{transform:translateY(-50%) scale(.9);border-color:var(--gold)}
+.padrinos-arrow svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2}
+.padrinos-arrow.prev{left:-6px}
+.padrinos-arrow.next{right:-6px}
+.padrinos-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
+.padrinos-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(148,129,51,.3);cursor:pointer;padding:0;transition:background .25s,transform .25s}
+.padrinos-dots button.active{background:var(--gold);transform:scale(1.3)}
 
 /* ── GALLERY — RUEDA 3D ────────────────── */
 #gallery{
@@ -629,6 +679,47 @@ section>*{position:relative;z-index:1}
 .alb-btn{max-width:310px;margin:0 auto;display:flex}
 .alb-hint{text-align:center;font-size:clamp(11px,2.8vw,13px);color:var(--cream);opacity:.4;line-height:1.75;margin-top:clamp(18px,5vw,26px)}
 
+/* ── SECCIONES DE FRASE (elegantes, degradado animado paleta) ── */
+.quote-sec{
+  position:relative;overflow:hidden;text-align:center;
+  padding:clamp(60px,15vw,100px) clamp(22px,6vw,38px);
+  background:
+    radial-gradient(120% 90% at 18% 8%, rgba(110,2,15,.34), transparent 55%),
+    radial-gradient(120% 90% at 85% 92%, rgba(14,14,119,.22), transparent 55%),
+    radial-gradient(90% 70% at 60% 50%, rgba(148,129,51,.10), transparent 62%),
+    linear-gradient(180deg, var(--ink) 0%, #150a0c 55%, var(--ink) 100%);
+  background-size:190% 190%,190% 190%,170% 170%,100% 100%;
+  animation:paletteDrift 26s ease-in-out infinite;
+  border-top:1px solid rgba(148,129,51,.12);
+  border-bottom:1px solid rgba(148,129,51,.12);
+}
+.quote-sec::before{display:none}
+@keyframes paletteDrift{
+  0%,100%{background-position:0% 0%,100% 100%,50% 50%,0 0}
+  50%{background-position:45% 35%,55% 65%,40% 60%,0 0}
+}
+.quote-frame{
+  position:relative;z-index:1;max-width:520px;margin:0 auto;
+  padding:clamp(30px,8vw,48px) clamp(22px,6vw,36px);
+  border:1px solid rgba(148,129,51,.3);
+  background:rgba(10,9,8,.42);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 22px 60px rgba(0,0,0,.42),inset 0 1px 0 rgba(148,129,51,.1);
+}
+.quote-frame::before,.quote-frame::after{
+  content:'';position:absolute;width:34px;height:34px;pointer-events:none;
+  border:0 solid var(--gold);opacity:.55;
+}
+.quote-frame::before{top:10px;left:10px;border-left-width:1px;border-top-width:1px}
+.quote-frame::after{bottom:10px;right:10px;border-right-width:1px;border-bottom-width:1px}
+.quote-eyebrow{font-size:clamp(9px,2.4vw,11px);letter-spacing:clamp(4px,1.5vw,6px);text-transform:uppercase;color:var(--gold);font-weight:600;display:block;margin-bottom:6px}
+.quote-mark{font-family:'Great Vibes',cursive;font-size:clamp(58px,16vw,86px);color:var(--gold);line-height:1;opacity:.7;display:block;height:.62em;overflow:visible}
+.quote-text{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;
+  font-size:clamp(18px,5vw,24px);line-height:1.62;color:var(--cream);
+}
+.quote-gline{width:54px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:20px auto 0}
+.quote-sig{margin-top:16px;font-family:'Great Vibes',cursive;font-size:clamp(28px,7.5vw,40px);color:var(--gold-lt);line-height:1.1}
+
 /* ── FOOTER ────────────────────────────── */
 #footer{
   background:
@@ -722,6 +813,7 @@ section>*{position:relative;z-index:1}
 }
 @media(prefers-reduced-motion:reduce){
   .bg-orb{animation:none!important}
+  .quote-sec{animation:none!important}
 }
   </style>
 </head>
@@ -784,6 +876,18 @@ section>*{position:relative;z-index:1}
 </section>
 
 
+<!-- 1.5 FRASE DE LOS NOVIOS -->
+<section id="quoteA" class="quote-sec">
+  <div class="quote-frame">
+    <span class="quote-eyebrow">Nuestro camino</span>
+    <span class="quote-mark" aria-hidden="true">&rdquo;</span>
+    <p class="quote-text">Hoy celebramos que el amor nos encontró en el momento perfecto. Elegimos caminar juntos, tomarnos de la mano y construir una vida donde el respeto, la complicidad y el amor sean siempre nuestro hogar.</p>
+    <div class="quote-gline"></div>
+    <p class="quote-sig">Nora &amp; Francisco</p>
+  </div>
+</section>
+
+
 <!-- 2. CUENTA REGRESIVA -->
 <section id="countdown">
   <span class="lbl">El gran día llega en</span>
@@ -806,9 +910,9 @@ section>*{position:relative;z-index:1}
 
   <div class="loc-card">
     <p class="loc-type" style="text-align:center">✦  Ceremonia Religiosa</p>
-    <h3 class="loc-name" style="text-align:center;font-family:'Great Vibes',cursive;font-size:clamp(28px,8vw,38px)">San Francisco del Rincón</h3>
+    <h3 class="loc-name" style="text-align:center;font-family:'Great Vibes',cursive;font-size:clamp(28px,8vw,38px)">Templo de San Francisco</h3>
     <div class="loc-time" style="text-align:center">3:00 <em>PM</em></div>
-    <p class="loc-addr" style="text-align:center">Guanajuato · México</p>
+    <p class="loc-addr" style="text-align:center">San Francisco del Rincón, Guanajuato</p>
     <a href="https://maps.app.goo.gl/CUYKMjdETyL1GV7U8"
        target="_blank" rel="noopener" class="btn" style="max-width:310px;margin:0 auto">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -818,9 +922,9 @@ section>*{position:relative;z-index:1}
 
   <div class="loc-card">
     <p class="loc-type" style="text-align:center">✦  Recepción</p>
-    <h3 class="loc-name" style="text-align:center;font-family:'Great Vibes',cursive;font-size:clamp(28px,8vw,38px)">San Francisco del Rincón</h3>
+    <h3 class="loc-name" style="text-align:center;font-family:'Great Vibes',cursive;font-size:clamp(28px,8vw,38px)">Hacienda Las Lomas</h3>
     <div class="loc-time" style="text-align:center">4:30 <em>PM</em></div>
-    <p class="loc-addr" style="text-align:center">Guanajuato · México</p>
+    <p class="loc-addr" style="text-align:center">San Francisco del Rincón, Guanajuato</p>
     <a href="https://maps.app.goo.gl/6TTYrRhNKUoHSsH67"
        target="_blank" rel="noopener" class="btn" style="max-width:310px;margin:0 auto">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -935,8 +1039,8 @@ section>*{position:relative;z-index:1}
         <svg class="env-svg" viewBox="0 0 260 200" preserveAspectRatio="none" aria-hidden="true">
           <defs>
             <linearGradient id="fr-env-fill" x1="0" y1="1" x2="1" y2="0">
-              <stop offset="0%" stop-color="#181610"/>
-              <stop offset="100%" stop-color="#2a2418"/>
+              <stop offset="0%" stop-color="#1c0609"/>
+              <stop offset="100%" stop-color="#2a161a"/>
             </linearGradient>
           </defs>
           <rect x="18" y="52" width="224" height="132" rx="10" fill="url(#fr-env-fill)" stroke="rgba(148,129,51,.5)" stroke-width="1.4"/>
@@ -953,8 +1057,8 @@ section>*{position:relative;z-index:1}
           <svg viewBox="0 0 224 86" preserveAspectRatio="none" style="width:100%;height:100%">
             <defs>
               <linearGradient id="fr-flap-fill" x1="0" y1="1" x2="1" y2="0">
-                <stop offset="0%" stop-color="rgba(148,129,51,.4)"/>
-                <stop offset="100%" stop-color="#181610"/>
+                <stop offset="0%" stop-color="rgba(201,178,106,.55)"/>
+                <stop offset="100%" stop-color="#2a0a10"/>
               </linearGradient>
             </defs>
             <path d="M0 0 L112 86 L224 0 Z" fill="url(#fr-flap-fill)" stroke="rgba(148,129,51,.5)" stroke-width="1.5" stroke-linejoin="round"/>
@@ -1021,11 +1125,14 @@ section>*{position:relative;z-index:1}
   </div>
   <p style="margin-top:18px;font-family:'Great Vibes',cursive;font-size:clamp(24px,7vw,36px);color:#fff;text-align:center;letter-spacing:1px;line-height:1.2">Etiqueta rigurosa</p>
 
-  <p style="margin-top:24px;font-family:'Cormorant Garamond',serif;font-size:clamp(13px,3.5vw,16px);letter-spacing:.14em;text-transform:uppercase;color:var(--cream);opacity:.7;text-align:center;margin-bottom:8px">Por favor evita estos colores</p>
-  <div class="palette" id="palette">
-    <div class="pal-item"><div class="pal-sw" style="background:#FF0000;border-color:rgba(148,129,51,.3)"></div><p class="pal-nm">Rojo</p></div>
-    <div class="pal-item"><div class="pal-sw" style="background:#FFF700;border-color:rgba(148,129,51,.3)"></div><p class="pal-nm">Amarillo</p></div>
-    <div class="pal-item"><div class="pal-sw" style="background:#00FF40;border-color:rgba(148,129,51,.3)"></div><p class="pal-nm">Verde</p></div>
+  <p style="margin-top:26px;font-family:'Cormorant Garamond',serif;font-size:clamp(14px,3.6vw,16px);letter-spacing:.14em;text-transform:uppercase;color:var(--cream);opacity:.75;text-align:center;margin-bottom:14px">Por favor evita estos tonos</p>
+  <div class="avoid-prism" id="avoidPrism">
+    <div class="avoid-seg" style="--c:#FF0000"></div>
+    <div class="avoid-seg" style="--c:#FFF700"></div>
+    <div class="avoid-seg" style="--c:#00FF40"></div>
+  </div>
+  <div class="avoid-labels">
+    <span>Rojo</span><span>Amarillo</span><span>Verde</span>
   </div>
 </section>
 
@@ -1042,22 +1149,38 @@ section>*{position:relative;z-index:1}
   <div class="sdiv"></div>
 
   <p class="fam-ttl">Padres de la Novia</p>
-  <div class="fam-card"><p class="fam-nms">Espiridión Mena Villalobos&nbsp;†<br><span class="fam-sep">&amp;</span><br>Rita Navarro Estrada&nbsp;†</p></div>
+  <div class="fam-card"><p class="fam-nms">Espiridión Mena Villalobos<svg class="fam-cross" viewBox="0 0 20 24" aria-hidden="true"><path d="M8.6 2 h2.8 v5.4 h5.4 v2.8 h-5.4 v11.8 h-2.8 v-11.8 h-5.4 v-2.8 h5.4 z"/></svg><br><span class="fam-sep">&amp;</span><br>Rita Navarro Estrada<svg class="fam-cross" viewBox="0 0 20 24" aria-hidden="true"><path d="M8.6 2 h2.8 v5.4 h5.4 v2.8 h-5.4 v11.8 h-2.8 v-11.8 h-5.4 v-2.8 h5.4 z"/></svg></p></div>
 
   <div class="sdiv"></div>
 
   <p class="fam-ttl">Padrinos</p>
-  <div class="fam-card">
-    <p class="fam-role">Padrinos de Velación</p>
-    <p class="fam-nms">Marcos García Mena<br><span class="fam-sep">&amp;</span><br>Juana González Magaña</p>
-  </div>
-  <div class="fam-card">
-    <p class="fam-role">Padrinos de Anillo</p>
-    <p class="fam-nms">Eduardo Adair Reyes Rodríguez<br><span class="fam-sep">&amp;</span><br>Juana Isabel Bravo Rodríguez</p>
-  </div>
-  <div class="fam-card">
-    <p class="fam-role">Padrinos de Lazo</p>
-    <p class="fam-nms">José María Ramírez Ortíz<br><span class="fam-sep">&amp;</span><br>María del Rocío Janeth Becerra</p>
+  <div class="padrinos-carousel">
+    <button class="padrinos-arrow prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button class="padrinos-arrow next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+    <div class="padrinos-viewport">
+      <div class="padrinos-track" id="padrinosTrack">
+        <div class="padrino-slide">
+          <div class="padrino-icon"><svg viewBox="0 0 64 64"><rect x="22" y="28" width="8" height="24" rx="1.5"/><rect x="34" y="28" width="8" height="24" rx="1.5"/><line x1="26" y1="28" x2="26" y2="22"/><line x1="38" y1="28" x2="38" y2="22"/><path d="M26 22c-2.2-2.2-2.2-4.5 0-6.8 2.2 2.3 2.2 4.6 0 6.8Z"/><path d="M38 22c-2.2-2.2-2.2-4.5 0-6.8 2.2 2.3 2.2 4.6 0 6.8Z"/><line x1="17" y1="52" x2="47" y2="52"/></svg></div>
+          <div class="padrino-rol">Velación</div>
+          <p class="padrino-names">Marcos García Mena<br>y Juana González Magaña</p>
+        </div>
+        <div class="padrino-slide">
+          <div class="padrino-icon"><svg viewBox="0 0 64 64"><circle cx="26" cy="34" r="13"/><circle cx="40" cy="34" r="13"/></svg></div>
+          <div class="padrino-rol">Anillo</div>
+          <p class="padrino-names">Eduardo Adair Reyes Rodríguez<br>y Juana Isabel Bravo Rodríguez</p>
+        </div>
+        <div class="padrino-slide">
+          <div class="padrino-icon"><svg viewBox="0 0 64 64"><path d="M44 24c-6.6 0-10 8-12 8s-5.4-8-12-8a8 8 0 000 16c6.6 0 10-8 12-8s5.4 8 12 8a8 8 0 000-16Z"/></svg></div>
+          <div class="padrino-rol">Lazo</div>
+          <p class="padrino-names">José María Ramírez Ortíz<br>y María del Rocío Janeth Becerra</p>
+        </div>
+      </div>
+    </div>
+    <div class="padrinos-dots" id="padrinosDots">
+      <button class="active" aria-label="Velación"></button>
+      <button aria-label="Anillo"></button>
+      <button aria-label="Lazo"></button>
+    </div>
   </div>
 </section>
 
@@ -1070,14 +1193,37 @@ section>*{position:relative;z-index:1}
   <div class="wheel-scene" id="wheel-scene">
     <div class="wheel-ring" id="wheel-ring">
       <div class="wheel-card"><img src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/dcf6bf92-ced7-46c2-85ed-c35394470009/1784345104684-5.jpeg" alt="Nora y Francisco" loading="lazy"></div>
+      <div class="wheel-card"><img src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/gallery/boda-francisco-y-nora/g10.jpg" alt="Nora y Francisco" loading="lazy"></div>
       <div class="wheel-card"><img src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/dcf6bf92-ced7-46c2-85ed-c35394470009/1784345154299-0.jpeg" alt="Nora y Francisco" loading="lazy"></div>
+      <div class="wheel-card"><img src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/gallery/boda-francisco-y-nora/g11.jpg" alt="Nora y Francisco" loading="lazy"></div>
       <div class="wheel-card"><img src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/dcf6bf92-ced7-46c2-85ed-c35394470009/1784345138510-0.jpeg" alt="Nora y Francisco" loading="lazy"></div>
+      <div class="wheel-card"><img src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/gallery/boda-francisco-y-nora/g01.jpg" alt="Nora y Francisco" loading="lazy"></div>
       <div class="wheel-card"><img src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/dcf6bf92-ced7-46c2-85ed-c35394470009/1784345163374-0.jpeg" alt="Nora y Francisco" loading="lazy"></div>
+      <div class="wheel-card"><img src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/gallery/boda-francisco-y-nora/g05.jpg" alt="Nora y Francisco" loading="lazy"></div>
       <div class="wheel-card"><img src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/dcf6bf92-ced7-46c2-85ed-c35394470009/1784345223062-0.jpeg" alt="Nora y Francisco" loading="lazy"></div>
+      <div class="wheel-card"><img src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/gallery/boda-francisco-y-nora/g07.jpg" alt="Nora y Francisco" loading="lazy"></div>
       <div class="wheel-card"><img src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/dcf6bf92-ced7-46c2-85ed-c35394470009/1784345195202-0.jpeg" alt="Nora y Francisco" loading="lazy"></div>
+      <div class="wheel-card"><img src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/gallery/boda-francisco-y-nora/g03.jpg" alt="Nora y Francisco" loading="lazy"></div>
+      <div class="wheel-card"><img src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/gallery/boda-francisco-y-nora/g02.jpg" alt="Nora y Francisco" loading="lazy"></div>
+      <div class="wheel-card"><img src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/gallery/boda-francisco-y-nora/g06.jpg" alt="Nora y Francisco" loading="lazy"></div>
+      <div class="wheel-card"><img src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/gallery/boda-francisco-y-nora/g08.jpg" alt="Nora y Francisco" loading="lazy"></div>
+      <div class="wheel-card"><img src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/gallery/boda-francisco-y-nora/g09.jpg" alt="Nora y Francisco" loading="lazy"></div>
+      <div class="wheel-card"><img src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/gallery/boda-francisco-y-nora/g04.jpg" alt="Nora y Francisco" loading="lazy"></div>
     </div>
   </div>
   <p class="gal-hint">Arrastra para girar</p>
+</section>
+
+
+<!-- 11.5 FRASE PARA LOS INVITADOS -->
+<section id="quoteB" class="quote-sec">
+  <div class="quote-frame">
+    <span class="quote-eyebrow">Celebremos juntos</span>
+    <span class="quote-mark" aria-hidden="true">&rdquo;</span>
+    <p class="quote-text">¡Nos casamos! Queremos rodearnos de la energía y el cariño de nuestra familia y amigos en el día más feliz de nuestra historia.</p>
+    <div class="quote-gline"></div>
+    <p class="quote-sig">¡Los esperamos!</p>
+  </div>
 </section>
 
 
@@ -1161,7 +1307,35 @@ section>*{position:relative;z-index:1}
 document.addEventListener('DOMContentLoaded', () => {
   gsap.registerPlugin(ScrollTrigger);
   initRSVP();
+  initSwipeCarousel('padrinosTrack','padrinosDots','.padrinos-arrow');
 });
+
+/* ── CARRUSEL SWIPE (padrinos) ─────────────────────── */
+function initSwipeCarousel(trackId, dotsId, arrowSel){
+  var track=document.getElementById(trackId);
+  if(!track)return;
+  var slides=track.children.length;
+  var dots=document.querySelectorAll('#'+dotsId+' button');
+  var idx=0;
+  function go(i){
+    idx=(i+slides)%slides;
+    track.style.transform='translateX('+(-idx*100)+'%)';
+    dots.forEach(function(d,k){d.classList.toggle('active',k===idx);});
+  }
+  var prev=document.querySelector(arrowSel+'.prev');
+  var next=document.querySelector(arrowSel+'.next');
+  if(prev)prev.addEventListener('click',function(){go(idx-1);});
+  if(next)next.addEventListener('click',function(){go(idx+1);});
+  dots.forEach(function(d,k){d.addEventListener('click',function(){go(k);});});
+  var sx=0,sy=0;
+  track.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
+  track.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-sx;
+    var dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){go(dx<0?idx+1:idx-1);}
+  },{passive:true});
+  go(0);
+}
 
 /* ── ENVELOPE ──────────────────────────────────────── */
 (function () {
@@ -1279,18 +1453,21 @@ function heroAnim() {
 
 /* ── BACKGROUND DEPTH ORBS ────────────────────────── */
 function initBgOrbs() {
+  // Paleta cliente en los fondos: vino (protagonista), azul (acento sutil), dorado (firma)
   var orbConfigs = [
-    { sel:'#countdown',  orbs:[{x:'15%',y:'20%',w:180,c:'rgba(148,129,51,.13)',a:'orbFloat1',d:'14s'},{x:'80%',y:'65%',w:140,c:'rgba(180,150,80,.10)',a:'orbFloat2',d:'18s'},{x:'50%',y:'85%',w:100,c:'rgba(210,185,120,.08)',a:'orbFloat3',d:'22s'}] },
-    { sel:'#location',   orbs:[{x:'75%',y:'25%',w:200,c:'rgba(170,140,75,.12)',a:'orbFloat2',d:'16s'},{x:'20%',y:'70%',w:150,c:'rgba(148,129,51,.10)',a:'orbFloat1',d:'20s'}] },
-    { sel:'#calendar',   orbs:[{x:'25%',y:'30%',w:160,c:'rgba(148,129,51,.11)',a:'orbFloat3',d:'15s'},{x:'70%',y:'75%',w:130,c:'rgba(150,125,70,.09)',a:'orbFloat1',d:'19s'}] },
-    { sel:'#itinerary',  orbs:[{x:'80%',y:'40%',w:170,c:'rgba(190,160,90,.11)',a:'orbFloat1',d:'17s'},{x:'15%',y:'80%',w:120,c:'rgba(148,129,51,.08)',a:'orbFloat2',d:'21s'}] },
-    { sel:'#dresscode',  orbs:[{x:'30%',y:'20%',w:150,c:'rgba(148,129,51,.10)',a:'orbFloat2',d:'16s'},{x:'75%',y:'70%',w:180,c:'rgba(160,135,80,.12)',a:'orbFloat3',d:'20s'}] },
-    { sel:'#family',     orbs:[{x:'70%',y:'30%',w:160,c:'rgba(180,150,80,.10)',a:'orbFloat1',d:'18s'},{x:'25%',y:'75%',w:140,c:'rgba(148,129,51,.09)',a:'orbFloat3',d:'22s'}] },
-    { sel:'#gallery',    orbs:[{x:'20%',y:'25%',w:190,c:'rgba(190,160,90,.13)',a:'orbFloat3',d:'15s'},{x:'80%',y:'60%',w:150,c:'rgba(148,129,51,.10)',a:'orbFloat1',d:'19s'},{x:'50%',y:'90%',w:110,c:'rgba(150,125,70,.08)',a:'orbFloat2',d:'23s'}] },
-    { sel:'#rsvp',       orbs:[{x:'75%',y:'35%',w:170,c:'rgba(148,129,51,.11)',a:'orbFloat2',d:'17s'},{x:'20%',y:'70%',w:130,c:'rgba(170,140,75,.09)',a:'orbFloat1',d:'21s'}] },
-    { sel:'#gifts',      orbs:[{x:'80%',y:'25%',w:180,c:'rgba(180,150,80,.12)',a:'orbFloat3',d:'18s'},{x:'15%',y:'65%',w:140,c:'rgba(148,129,51,.09)',a:'orbFloat2',d:'22s'}] },
-    { sel:'#album',      orbs:[{x:'25%',y:'30%',w:160,c:'rgba(190,160,90,.10)',a:'orbFloat2',d:'17s'},{x:'70%',y:'75%',w:130,c:'rgba(148,129,51,.08)',a:'orbFloat1',d:'21s'}] },
-    { sel:'#footer',     orbs:[{x:'50%',y:'30%',w:200,c:'rgba(148,129,51,.12)',a:'orbFloat1',d:'16s'},{x:'20%',y:'70%',w:150,c:'rgba(150,125,70,.09)',a:'orbFloat3',d:'20s'}] }
+    { sel:'#countdown',  orbs:[{x:'16%',y:'20%',w:200,c:'rgba(110,2,15,.32)',a:'orbFloat1',d:'15s'},{x:'82%',y:'66%',w:150,c:'rgba(148,129,51,.13)',a:'orbFloat2',d:'19s'},{x:'50%',y:'88%',w:120,c:'rgba(14,14,119,.16)',a:'orbFloat3',d:'23s'}] },
+    { sel:'#location',   orbs:[{x:'76%',y:'24%',w:210,c:'rgba(110,2,15,.28)',a:'orbFloat2',d:'16s'},{x:'18%',y:'72%',w:160,c:'rgba(14,14,119,.20)',a:'orbFloat1',d:'21s'}] },
+    { sel:'#calendar',   orbs:[{x:'24%',y:'28%',w:180,c:'rgba(110,2,15,.26)',a:'orbFloat3',d:'15s'},{x:'72%',y:'74%',w:140,c:'rgba(148,129,51,.13)',a:'orbFloat1',d:'19s'}] },
+    { sel:'#quoteA',     orbs:[{x:'18%',y:'22%',w:210,c:'rgba(110,2,15,.34)',a:'orbFloat1',d:'17s'},{x:'82%',y:'72%',w:170,c:'rgba(14,14,119,.22)',a:'orbFloat3',d:'22s'},{x:'55%',y:'48%',w:130,c:'rgba(148,129,51,.11)',a:'orbFloat2',d:'26s'}] },
+    { sel:'#itinerary',  orbs:[{x:'80%',y:'38%',w:180,c:'rgba(110,2,15,.26)',a:'orbFloat1',d:'17s'},{x:'15%',y:'80%',w:130,c:'rgba(148,129,51,.11)',a:'orbFloat2',d:'21s'}] },
+    { sel:'#dresscode',  orbs:[{x:'28%',y:'20%',w:160,c:'rgba(110,2,15,.24)',a:'orbFloat2',d:'16s'},{x:'76%',y:'70%',w:190,c:'rgba(14,14,119,.18)',a:'orbFloat3',d:'20s'}] },
+    { sel:'#family',     orbs:[{x:'72%',y:'28%',w:170,c:'rgba(110,2,15,.26)',a:'orbFloat1',d:'18s'},{x:'24%',y:'76%',w:150,c:'rgba(148,129,51,.11)',a:'orbFloat3',d:'22s'}] },
+    { sel:'#gallery',    orbs:[{x:'20%',y:'24%',w:200,c:'rgba(110,2,15,.30)',a:'orbFloat3',d:'15s'},{x:'80%',y:'60%',w:160,c:'rgba(14,14,119,.20)',a:'orbFloat1',d:'19s'},{x:'50%',y:'90%',w:120,c:'rgba(148,129,51,.10)',a:'orbFloat2',d:'23s'}] },
+    { sel:'#quoteB',     orbs:[{x:'22%',y:'26%',w:210,c:'rgba(110,2,15,.34)',a:'orbFloat2',d:'18s'},{x:'80%',y:'70%',w:170,c:'rgba(14,14,119,.22)',a:'orbFloat1',d:'23s'},{x:'52%',y:'50%',w:130,c:'rgba(148,129,51,.11)',a:'orbFloat3',d:'26s'}] },
+    { sel:'#rsvp',       orbs:[{x:'76%',y:'34%',w:180,c:'rgba(110,2,15,.26)',a:'orbFloat2',d:'17s'},{x:'20%',y:'70%',w:140,c:'rgba(14,14,119,.18)',a:'orbFloat1',d:'21s'}] },
+    { sel:'#gifts',      orbs:[{x:'80%',y:'24%',w:190,c:'rgba(110,2,15,.28)',a:'orbFloat3',d:'18s'},{x:'15%',y:'66%',w:150,c:'rgba(148,129,51,.11)',a:'orbFloat2',d:'22s'}] },
+    { sel:'#album',      orbs:[{x:'24%',y:'28%',w:170,c:'rgba(110,2,15,.24)',a:'orbFloat2',d:'17s'},{x:'72%',y:'76%',w:140,c:'rgba(14,14,119,.16)',a:'orbFloat1',d:'21s'}] },
+    { sel:'#footer',     orbs:[{x:'50%',y:'28%',w:210,c:'rgba(110,2,15,.30)',a:'orbFloat1',d:'16s'},{x:'20%',y:'72%',w:160,c:'rgba(14,14,119,.20)',a:'orbFloat3',d:'20s'}] }
   ];
   orbConfigs.forEach(function(cfg) {
     var sec = document.querySelector(cfg.sel);
@@ -1427,11 +1604,11 @@ function scrollAnims() {
     ease: 'back.out(1.5)',
     scrollTrigger: { trigger: '#dcCols', start: 'top 86%', once: true }
   });
-  gsap.set('.pal-sw', { scale: 0 });
+  gsap.set('.avoid-seg', { scaleY: 0, transformOrigin: 'bottom' });
   ScrollTrigger.create({
-    trigger: '#palette', start: 'top 86%', once: true,
+    trigger: '#avoidPrism', start: 'top 88%', once: true,
     onEnter() {
-      gsap.to('.pal-sw', { scale: 1, duration: .6, stagger: .1, ease: 'back.out(2.2)' });
+      gsap.to('.avoid-seg', { scaleY: 1, duration: .7, stagger: .12, ease: 'power3.out' });
     }
   });
 
@@ -1516,6 +1693,18 @@ function scrollAnims() {
     opacity: 0, y: 22, duration: .65, stagger: .12, ease,
     scrollTrigger: { trigger: '#footer', start: 'top 90%', once: true }
   });
+
+  /* Secciones de frase — reveal elegante */
+  document.querySelectorAll('.quote-sec').forEach(function(sec){
+    gsap.from(sec.querySelector('.quote-frame'), {
+      opacity: 0, y: 42, scale: .97, duration: .9, ease,
+      scrollTrigger: { trigger: sec, start: 'top 82%', once: true }
+    });
+    gsap.from(sec.querySelectorAll('.quote-eyebrow,.quote-mark,.quote-text,.quote-gline,.quote-sig'), {
+      opacity: 0, y: 20, duration: .7, stagger: .13, ease,
+      scrollTrigger: { trigger: sec, start: 'top 78%', once: true }
+    });
+  });
 }
 
 /* ── COUNTDOWN ─────────────────────────────────────── */
@@ -1556,12 +1745,48 @@ function toggleMusic() {
 }
 
 /* ── SOBRE INTERACTIVO (lluvia de sobres) ──────────── */
+function fireConfetti(originEl){
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var rect = originEl.getBoundingClientRect();
+  var cx = rect.left + rect.width/2;
+  var cy = rect.top + rect.height/2.4;
+  var colors = ['#6e020f','#948133','#0e0e77','#c9b26a','#a8283a','#5d5656'];
+  var N = 46;
+  for(var i=0;i<N;i++){
+    var el = document.createElement('div');
+    var sz = 6 + Math.random()*7;
+    var col = colors[i % colors.length];
+    Object.assign(el.style,{
+      position:'fixed', left:cx+'px', top:cy+'px',
+      width:sz+'px', height:(sz*0.5)+'px',
+      background:col, borderRadius:'1px',
+      zIndex:9998, pointerEvents:'none', willChange:'transform,opacity',
+      boxShadow:'0 0 6px '+col+'66'
+    });
+    document.body.appendChild(el);
+    var ang = Math.random()*Math.PI*2;
+    var dist = 55 + Math.random()*150;
+    var dx = Math.cos(ang)*dist;
+    var dy = Math.sin(ang)*dist - (55 + Math.random()*80);
+    gsap.set(el,{ xPercent:-50, yPercent:-50, rotation:Math.random()*360 });
+    (function(node,ex,ey){
+      gsap.timeline({ onComplete:function(){ node.remove(); } })
+        .to(node,{ x:ex, y:ey, rotation:'+='+(180+Math.random()*360), duration:.5+Math.random()*.3, ease:'power2.out' })
+        .to(node,{ y:'+='+(190+Math.random()*170), opacity:0, rotation:'+=180', duration:1+Math.random()*.6, ease:'power1.in' }, '-=.1');
+    })(el,dx,dy);
+  }
+}
+
 (function(){
   var env = document.querySelector('.env-interactive');
   if(!env) return;
+  var body = env.querySelector('.env-body');
   env.addEventListener('click', function(){
+    var opening = !env.classList.contains('open');
     env.classList.toggle('open');
     env.setAttribute('aria-expanded', env.classList.contains('open'));
+    if(body) gsap.fromTo(body,{scale:1},{scale:1.07,duration:.16,yoyo:true,repeat:1,ease:'power2.out'});
+    if(opening) fireConfetti(env);
   });
 })();
 
@@ -1737,7 +1962,8 @@ function initWheel() {
   var cards = ring.querySelectorAll('.wheel-card');
   var n = cards.length;
   if (!n) return;
-  var radius = Math.min(210, window.innerWidth * 0.52);
+  // radio escalado según cantidad de fotos para que un anillo denso no se encime
+  var radius = Math.max(200, Math.min(n * 20, window.innerWidth * 0.95));
   var rot = 0, vel = 0, isDrag = false, startX = 0, startRot = 0, lastX = 0, rafId = null;
 
   cards.forEach(function (card, i) {
