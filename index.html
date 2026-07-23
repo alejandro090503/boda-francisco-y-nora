@@ -15,7 +15,7 @@
   <meta property="og:image:height" content="630">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Great+Vibes&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Great+Vibes&family=Pinyon+Script&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
 :root {
   --gold:      #948133;
@@ -809,20 +809,39 @@ section>*{position:relative;z-index:1}
 .el-credit:hover{opacity:.8}
 .el-credit svg{opacity:.85}
 
-/* ── ENVELOPE ──────────────────────────── */
-#envelope-screen{position:fixed;inset:0;z-index:10000;overflow:hidden;cursor:pointer;opacity:0;background:#000000}
-#env-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:2;transform:scale(1.18)}
-#env-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:3;opacity:0;transform:scale(1.18)}
-#env-flash{position:fixed;inset:0;background:#fff;z-index:9999;opacity:0;pointer-events:none}
-.envelope-hint{
-  position:absolute;bottom:52px;left:50%;transform:translateX(-50%);
-  font-family:'Cormorant Garamond',serif;font-size:clamp(11px,3vw,13px);
-  letter-spacing:clamp(4px,1.2vw,6px);text-transform:uppercase;
-  color:rgba(148,129,51,.8);opacity:0;cursor:pointer;white-space:nowrap;z-index:10;
-  text-shadow:0 1px 6px rgba(0,0,0,.5);
+/* ── ENTRADA (portada de apertura) ─────── */
+#envelope-screen{position:fixed;inset:0;z-index:10000;cursor:pointer;opacity:0;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#0a0806}
+.entrada-bg{
+  position:absolute;inset:-25%;z-index:0;
+  background:
+    radial-gradient(ellipse at 28% 18%, rgba(110,2,15,.45), transparent 55%),
+    radial-gradient(ellipse at 78% 82%, rgba(14,14,64,.36), transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(148,129,51,.10), transparent 62%),
+    linear-gradient(155deg,#0d0a08,#130a0c 52%,#090910);
+  background-size:200% 200%;
+  animation:entradaGrad 17s ease-in-out infinite;
 }
-.envelope-hint::after{content:'';display:block;width:32px;height:1px;background:linear-gradient(90deg,transparent,rgba(148,129,51,.5),transparent);margin:10px auto 0;animation:hintPulse 2.2s ease-in-out infinite}
-@keyframes hintPulse{0%,100%{opacity:.4;width:32px}50%{opacity:1;width:54px}}
+@keyframes entradaGrad{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.entrada-frame{position:absolute;top:18px;left:18px;right:18px;bottom:18px;border:1px solid rgba(148,129,51,.28);z-index:2;pointer-events:none}
+.entrada-frame::before,.entrada-frame::after{content:'✦';position:absolute;color:var(--gold);font-size:10px;opacity:.6;left:50%;transform:translateX(-50%)}
+.entrada-frame::before{top:-6px}
+.entrada-frame::after{bottom:-6px}
+.entrada-inner{position:relative;z-index:3;text-align:center;padding:0 26px;display:flex;flex-direction:column;align-items:center;max-width:430px}
+.entrada-eyebrow{font-family:'Cormorant Garamond',serif;font-size:clamp(11px,3vw,13px);letter-spacing:clamp(4px,1.6vw,7px);text-transform:uppercase;color:var(--gold);font-weight:500;opacity:.92}
+.entrada-orn{color:var(--gold);letter-spacing:10px;font-size:9px;opacity:.55;margin:18px 0 6px}
+.entrada-names{display:flex;flex-direction:column;align-items:center;line-height:1}
+.entrada-name{font-family:'Pinyon Script',cursive;font-size:clamp(58px,18vw,92px);color:var(--cream);line-height:1;text-shadow:0 2px 26px rgba(0,0,0,.55)}
+.entrada-amp{font-family:'Pinyon Script',cursive;font-size:clamp(30px,9vw,46px);color:var(--gold);line-height:1.1;margin:0}
+.entrada-date{font-family:'Cormorant Garamond',serif;font-size:clamp(12px,3.4vw,15px);letter-spacing:clamp(4px,1.6vw,7px);text-transform:uppercase;color:var(--gold-lt);margin-top:24px}
+.entrada-city{font-family:'Cormorant Garamond',serif;font-size:clamp(10px,2.6vw,12px);letter-spacing:clamp(2px,.9vw,4px);text-transform:uppercase;color:var(--cream);opacity:.45;margin-top:8px}
+.entrada-rings{margin-top:30px}
+.entrada-rings svg{width:64px;height:auto;display:block}
+.entrada-hint{font-family:'Cormorant Garamond',serif;font-size:clamp(11px,3vw,13px);letter-spacing:clamp(4px,1.2vw,6px);text-transform:uppercase;color:rgba(148,129,51,.9);margin-top:34px}
+.entrada-hint::after{content:'';display:block;width:34px;height:1px;background:linear-gradient(90deg,transparent,rgba(148,129,51,.6),transparent);margin:12px auto 0;animation:hintPulse 2.2s ease-in-out infinite}
+@keyframes hintPulse{0%,100%{opacity:.4;width:34px}50%{opacity:1;width:56px}}
+#env-flash{position:fixed;inset:0;background:#fff;z-index:9999;opacity:0;pointer-events:none}
+/* nombres de la pareja en Pinyon Script (N mayúscula clara) */
+.h-name,.ft-nms,.quote-sig{font-family:'Pinyon Script',cursive}
 
 /* ── RSVP CONFIRMED ────────────────────── */
 .rsvp-confirmed-msg{
@@ -876,11 +895,35 @@ section>*{position:relative;z-index:1}
 <body>
 <canvas id="globalSparkles"></canvas>
 
-<!-- ENVELOPE SCREEN -->
+<!-- ENTRADA (portada de apertura) -->
 <div id="envelope-screen" role="button" aria-label="Toca para abrir tu invitación">
-  <img id="env-image" src="sobre.jpg" alt="Sobre invitación Nora &amp; Francisco" />
-  <video id="env-video" src="sobre-apertura.mp4" playsinline webkit-playsinline muted preload="auto"></video>
-  <p class="envelope-hint" id="env-hint">Toca para abrir</p>
+  <div class="entrada-bg" aria-hidden="true"></div>
+  <div class="entrada-frame" aria-hidden="true"></div>
+  <div class="entrada-inner">
+    <p class="entrada-eyebrow">Con amor te invitamos</p>
+    <div class="entrada-orn" aria-hidden="true">✦ · ✦ · ✦</div>
+    <div class="entrada-names">
+      <span class="entrada-name">Nora</span>
+      <span class="entrada-amp">y</span>
+      <span class="entrada-name">Francisco</span>
+    </div>
+    <p class="entrada-date">24 · Octubre · 2026</p>
+    <p class="entrada-city">San Francisco del Rincón · Guanajuato</p>
+    <div class="entrada-rings" aria-hidden="true">
+      <svg viewBox="0 0 92 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="ringGold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#c9b26a"/>
+            <stop offset="0.5" stop-color="#948133"/>
+            <stop offset="1" stop-color="#c9b26a"/>
+          </linearGradient>
+        </defs>
+        <circle cx="35" cy="27" r="19.5" stroke="url(#ringGold)" stroke-width="2.4"/>
+        <circle cx="57" cy="27" r="19.5" stroke="url(#ringGold)" stroke-width="2.4"/>
+      </svg>
+    </div>
+    <p class="entrada-hint">Toca para abrir</p>
+  </div>
 </div>
 <div id="env-flash"></div>
 
@@ -931,7 +974,7 @@ section>*{position:relative;z-index:1}
     </div>
 
     <div class="h-clip"><span class="h-name" id="hN1">Nora</span></div>
-    <div class="h-amp-clip"><span class="h-amp" id="hAmp">&amp;</span></div>
+    <div class="h-amp-clip"><span class="h-amp" id="hAmp">y</span></div>
     <div class="h-clip"><span class="h-name" id="hN2">Francisco</span></div>
 
     <div class="gline" style="margin-top:28px" id="hLine"></div>
@@ -956,7 +999,7 @@ section>*{position:relative;z-index:1}
     <span class="quote-mark" aria-hidden="true">&rdquo;</span>
     <p class="quote-text">Hoy celebramos que el amor nos encontró en el momento perfecto. Elegimos caminar juntos, tomarnos de la mano y construir una vida donde el respeto, la complicidad y el amor sean siempre nuestro hogar.</p>
     <div class="quote-gline"></div>
-    <p class="quote-sig">Nora &amp; Francisco</p>
+    <p class="quote-sig">Nora y Francisco</p>
   </div>
 </section>
 
@@ -983,7 +1026,7 @@ section>*{position:relative;z-index:1}
 
   <div class="loc-card">
     <p class="loc-type" style="text-align:center">✦  Ceremonia Religiosa</p>
-    <h3 class="loc-name" style="text-align:center;font-family:'Great Vibes',cursive;font-size:clamp(28px,8vw,38px)">Templo de San Francisco</h3>
+    <h3 class="loc-name" style="text-align:center;font-family:'Great Vibes',cursive;font-size:clamp(28px,8vw,38px)">Templo Santo Domingo de Guzmán</h3>
     <div class="loc-time" style="text-align:center">3:00 <em>PM</em></div>
     <p class="loc-addr" style="text-align:center">San Francisco del Rincón, Guanajuato</p>
     <a href="https://maps.app.goo.gl/CUYKMjdETyL1GV7U8"
@@ -1089,10 +1132,6 @@ section>*{position:relative;z-index:1}
         <span class="gf-bk-lbl">Banco</span>
         <span class="gf-bk-val">BBVA</span>
       </p>
-      <p class="gf-bk-line">
-        <span class="gf-bk-lbl">Titular</span>
-        <span class="gf-bk-val">Francisco Ramírez</span>
-      </p>
       <p class="gf-bk-line" style="border-bottom:none;padding-bottom:2px">
         <span class="gf-bk-lbl">No. de Cuenta</span>
       </p>
@@ -1196,17 +1235,15 @@ section>*{position:relative;z-index:1}
       <div class="dc-col-ttl">Damas</div>
     </div>
   </div>
-  <p style="margin-top:18px;font-family:'Great Vibes',cursive;font-size:clamp(24px,7vw,36px);color:#fff;text-align:center;letter-spacing:1px;line-height:1.2">Etiqueta rigurosa</p>
-
-  <p style="margin-top:26px;font-family:'Cormorant Garamond',serif;font-size:clamp(14px,3.6vw,16px);letter-spacing:.14em;text-transform:uppercase;color:var(--cream);opacity:.75;text-align:center;margin-bottom:14px">Por favor evita estos tonos</p>
-  <div class="avoid-prism" id="avoidPrism">
-    <div class="avoid-seg" style="--c:#FF0000"></div>
-    <div class="avoid-seg" style="--c:#FFF700"></div>
-    <div class="avoid-seg" style="--c:#00FF40"></div>
+  <p style="margin-top:26px;font-family:'Cormorant Garamond',serif;font-size:clamp(14px,3.6vw,16px);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);opacity:.95;text-align:center;margin-bottom:2px">Colores sugeridos otoñales</p>
+  <p style="font-family:'Great Vibes',cursive;font-size:clamp(24px,7vw,34px);color:#fff;text-align:center;letter-spacing:1px;line-height:1.2;margin-bottom:18px">Terracota, ámbar, olivo y vino</p>
+  <div class="palette" id="palette">
+    <div class="pal-item"><div class="pal-sw" style="background:#B5624A"></div><p class="pal-nm">Terracota</p></div>
+    <div class="pal-item"><div class="pal-sw" style="background:#C9972F"></div><p class="pal-nm">Ámbar</p></div>
+    <div class="pal-item"><div class="pal-sw" style="background:#6E7644"></div><p class="pal-nm">Olivo</p></div>
+    <div class="pal-item"><div class="pal-sw" style="background:#6E020F"></div><p class="pal-nm">Vino</p></div>
   </div>
-  <div class="avoid-labels">
-    <span>Rojo</span><span>Amarillo</span><span>Verde</span>
-  </div>
+  <p style="margin-top:26px;font-family:'Cormorant Garamond',serif;font-size:clamp(14px,3.6vw,16px);line-height:1.75;color:var(--cream);opacity:.72;text-align:center;max-width:340px;margin-left:auto;margin-right:auto">Por favor evitar: <strong style="color:var(--gold);font-weight:600">blanco</strong> (reservado para la novia) y <strong style="color:var(--gold);font-weight:600">rojo fuerte</strong>.</p>
 </section>
 
 
@@ -1293,7 +1330,7 @@ section>*{position:relative;z-index:1}
   <div class="quote-frame">
     <span class="quote-eyebrow">Celebremos juntos</span>
     <span class="quote-mark" aria-hidden="true">&rdquo;</span>
-    <p class="quote-text">¡Nos casamos! Queremos rodearnos de la energía y el cariño de nuestra familia y amigos en el día más feliz de nuestra historia.</p>
+    <p class="quote-text">Queremos rodearnos de la energía y el cariño de nuestra familia y amigos en el día más feliz de nuestra historia.</p>
     <div class="quote-gline"></div>
     <p class="quote-sig">¡Los esperamos!</p>
   </div>
@@ -1359,7 +1396,7 @@ section>*{position:relative;z-index:1}
 <!-- 13. FOOTER -->
 <footer id="footer">
   <div class="ft-orn">✦ · ✦ · ✦</div>
-  <div class="ft-nms">Nora &amp; Francisco</div>
+  <div class="ft-nms">Nora y Francisco</div>
   <div class="gline" style="margin-top:22px"></div>
   <p class="ft-dt">24 · Octubre · 2026</p>
   <p class="ft-note">San Francisco del Rincón · Guanajuato · México<br>Con amor, los novios</p>
@@ -1413,27 +1450,13 @@ function initSwipeCarousel(trackId, dotsId, arrowSel){
 /* ── ENVELOPE ──────────────────────────────────────── */
 (function () {
   var envScreen = document.getElementById('envelope-screen');
-  var envImage  = document.getElementById('env-image');
-  var envVideo  = document.getElementById('env-video');
-  var envFlash  = document.getElementById('env-flash');
-  var hint      = document.getElementById('env-hint');
-  var opened    = false;
+  var opened    = false, invitationReady = false;
 
-  gsap.timeline()
-    .to(envScreen, { opacity: 1, duration: 1.2, ease: 'power2.out', delay: 0.3 })
-    .to(hint,      { opacity: 1, duration: 0.9, ease: 'power2.out' }, '-=0.5');
-
-  gsap.to(envImage, {
-    scale: 1.20, duration: 2.2, ease: 'sine.inOut',
-    repeat: -1, yoyo: true, delay: 1.5
-  });
-
-  var flashStarted = false, invitationReady = false;
+  gsap.to(envScreen, { opacity: 1, duration: 1.2, ease: 'power2.out', delay: 0.3 });
 
   function prepareInvitation() {
     if (invitationReady) return;
     invitationReady = true;
-    envScreen.style.display = 'none';
     document.getElementById('main-content').style.visibility = 'visible';
     heroAnim();
     spawnParticles();
@@ -1444,43 +1467,21 @@ function initSwipeCarousel(trackId, dotsId, arrowSel){
     startMusicOnOpen();
   }
 
-  function revealInvitation() {
+  function openEntrada() {
+    if (opened) return;
+    opened = true;
+    startMusicOnOpen();
     prepareInvitation();
-    gsap.to(envFlash, {
-      opacity: 0, duration: 3, ease: 'power1.out',
-      onComplete: function () { envFlash.style.display = 'none'; }
+    gsap.to(envScreen, {
+      opacity: 0, scale: 1.08, duration: 1.0, ease: 'power2.inOut',
+      onComplete: function () { envScreen.style.display = 'none'; }
     });
   }
 
-  envVideo.addEventListener('timeupdate', function () {
-    if (!flashStarted && envVideo.duration && envVideo.currentTime >= envVideo.duration - 5) {
-      flashStarted = true;
-      gsap.to(envFlash, { opacity: 1, duration: 4.5, ease: 'none', onComplete: revealInvitation });
-    }
-  });
-
-  envVideo.addEventListener('ended', function () {
-    if (!invitationReady) {
-      gsap.to(envFlash, { opacity: 1, duration: 1.5, ease: 'none', onComplete: revealInvitation });
-    }
-  });
-
-  function openEnvelope() {
-    if (opened) return;
-    opened = true;
-    gsap.killTweensOf(envImage);
-    gsap.to(hint, { opacity: 0, duration: 0.2 });
-    var p = envVideo.play();
-    gsap.to(envImage, { opacity: 0, duration: 0.55, ease: 'power2.inOut', onComplete: function () { envImage.style.display = 'none'; } });
-    gsap.to(envVideo, { opacity: 1, duration: 0.55, ease: 'power2.inOut' });
-    if (p !== undefined) p.catch(function () { revealInvitation(); });
-    startMusicOnOpen();
-  }
-
-  envScreen.addEventListener('click', openEnvelope);
+  envScreen.addEventListener('click', openEntrada);
   envScreen.addEventListener('touchstart', function (e) {
     e.preventDefault();
-    openEnvelope();
+    openEntrada();
   }, { passive: false });
 }());
 
@@ -1676,11 +1677,11 @@ function scrollAnims() {
     ease: 'back.out(1.5)',
     scrollTrigger: { trigger: '#dcCols', start: 'top 86%', once: true }
   });
-  gsap.set('.avoid-seg', { scaleY: 0, transformOrigin: 'bottom' });
+  gsap.set('#palette .pal-sw', { scale: 0 });
   ScrollTrigger.create({
-    trigger: '#avoidPrism', start: 'top 88%', once: true,
+    trigger: '#palette', start: 'top 88%', once: true,
     onEnter() {
-      gsap.to('.avoid-seg', { scaleY: 1, duration: .7, stagger: .12, ease: 'power3.out' });
+      gsap.to('#palette .pal-sw', { scale: 1, duration: .6, stagger: .1, ease: 'back.out(2.2)' });
     }
   });
 
