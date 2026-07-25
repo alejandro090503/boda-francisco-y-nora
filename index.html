@@ -936,7 +936,7 @@ section>*{position:relative;z-index:1}
 <div id="main-content" style="visibility:hidden">
 <div id="prog"></div>
 
-<audio id="bgMusic" loop preload="none">
+<audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline>
   <source src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/audio/boda-francisco-y-nora/cancion.mp3" type="audio/mpeg">
 </audio>
 
@@ -1509,12 +1509,9 @@ function initSwipeCarousel(trackId, dotsId, arrowSel){
 
 /* ── MUSIC AUTOPLAY ON OPEN ────────────────────────── */
 function startMusicOnOpen() {
-  var aud = document.getElementById('bgMusic');
-  var mBtn = document.getElementById('musicBtn');
-  aud.play().then(function() {
-    playing = true;
-    mBtn.classList.add('is-playing');
-  }).catch(function() {});
+  // intenta reproducir dentro del gesto de apertura y arma el reintento
+  tryPlayMusic();
+  armAudioUnlock();
 }
 
 /* ── SCROLL PROGRESS ───────────────────────────────── */
@@ -1826,15 +1823,43 @@ function countdown() {
   }
 }
 
-/* ── MUSIC ─────────────────────────────────────────── */
+/* ── MUSIC · reproducción automática robusta ───────── */
 const aud = document.getElementById('bgMusic');
 const mBtn = document.getElementById('musicBtn');
 let playing = false;
 
-function toggleMusic() {
-  if (playing) { aud.pause(); mBtn.classList.remove('is-playing'); }
-  else { aud.play().catch(()=>{}); mBtn.classList.add('is-playing'); }
-  playing = !playing;
+function reflectPlaying(on){
+  playing = on;
+  if(on) mBtn.classList.add('is-playing'); else mBtn.classList.remove('is-playing');
+}
+
+// Intenta reproducir. Si el navegador lo permite, marca reproduciendo y
+// quita los listeners de reintento; si lo bloquea, espera otra interacción.
+function tryPlayMusic(){
+  if(!aud) return;
+  var p;
+  try { p = aud.play(); } catch(e){ return; }
+  if(p && typeof p.then === 'function'){
+    p.then(function(){ reflectPlaying(true); disarmAudioUnlock(); })
+     .catch(function(){ /* bloqueado: se reintenta en la próxima interacción */ });
+  } else {
+    reflectPlaying(true);
+  }
+}
+
+// Desbloqueo por interacción: en CUALQUIER dispositivo, el primer toque,
+// click, tecla o scroll dispara la reproducción si el autoplay fue bloqueado.
+var AUDIO_UNLOCK_EVENTS = ['touchend','pointerup','mousedown','click','keydown','scroll'];
+function onAudioUnlock(){ if(playing){ disarmAudioUnlock(); return; } tryPlayMusic(); }
+function armAudioUnlock(){ AUDIO_UNLOCK_EVENTS.forEach(function(ev){ document.addEventListener(ev, onAudioUnlock, { passive:true }); }); }
+function disarmAudioUnlock(){ AUDIO_UNLOCK_EVENTS.forEach(function(ev){ document.removeEventListener(ev, onAudioUnlock, { passive:true }); }); }
+
+// Arranca el reintento desde ya (por si el usuario interactúa antes de abrir el sobre)
+armAudioUnlock();
+
+function toggleMusic(){
+  if(playing){ aud.pause(); reflectPlaying(false); }
+  else { tryPlayMusic(); }
 }
 
 /* ── SOBRE INTERACTIVO (lluvia de sobres) ──────────── */
