@@ -232,17 +232,17 @@ section>*{position:relative;z-index:1}
 /* ── HERO ──────────────────────────────── */
 #hero{
   min-height:100svh;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  position:relative;overflow:hidden;padding:48px 28px 88px;
+  align-items:center;justify-content:flex-end;
+  position:relative;overflow:hidden;padding:48px 28px clamp(42px,12vw,72px);
 }
 #hero::before{display:none}
 .h-bg{
-  position:absolute;top:-20%;left:0;right:0;bottom:-20%;
+  position:absolute;top:-6%;left:0;right:0;bottom:-6%;
   z-index:0;will-change:transform;
 }
 .h-bg img{
-  width:100%;height:100%;object-fit:cover;object-position:center 35%;
-  filter:brightness(.45) saturate(1.15) contrast(1.05);
+  width:100%;height:100%;object-fit:cover;object-position:center 48%;
+  filter:brightness(.62) saturate(1.12) contrast(1.04);
   display:block;
 }
 .h-ov{
@@ -834,8 +834,10 @@ section>*{position:relative;z-index:1}
 .entrada-amp{font-family:'Pinyon Script',cursive;font-size:clamp(30px,9vw,46px);color:var(--gold);line-height:1.1;margin:0}
 .entrada-date{font-family:'Cormorant Garamond',serif;font-size:clamp(12px,3.4vw,15px);letter-spacing:clamp(4px,1.6vw,7px);text-transform:uppercase;color:var(--gold-lt);margin-top:24px}
 .entrada-city{font-family:'Cormorant Garamond',serif;font-size:clamp(10px,2.6vw,12px);letter-spacing:clamp(2px,.9vw,4px);text-transform:uppercase;color:var(--cream);opacity:.45;margin-top:8px}
-.entrada-rings{margin-top:30px}
-.entrada-rings svg{width:64px;height:auto;display:block}
+.entrada-rings{margin-top:30px;position:relative;display:flex;align-items:center;justify-content:center}
+.entrada-rings .ring-svg{width:64px;height:auto;display:block;position:relative;z-index:2;transform-origin:50% 50%;filter:drop-shadow(0 0 3px rgba(201,178,106,.35))}
+.ring-flash{position:absolute;top:50%;left:50%;width:150px;height:150px;transform:translate(-50%,-50%) scale(0);border-radius:50%;background:radial-gradient(circle,rgba(255,246,214,.95) 0%,rgba(201,178,106,.8) 28%,rgba(148,129,51,.35) 52%,transparent 72%);opacity:0;pointer-events:none;z-index:1;filter:blur(2px)}
+.ring-spark{position:absolute;top:50%;left:50%;width:5px;height:5px;border-radius:50%;background:radial-gradient(circle,#fff6d6,#c9b26a 60%,transparent);opacity:0;pointer-events:none;z-index:3;box-shadow:0 0 6px rgba(201,178,106,.9)}
 .entrada-hint{font-family:'Cormorant Garamond',serif;font-size:clamp(11px,3vw,13px);letter-spacing:clamp(4px,1.2vw,6px);text-transform:uppercase;color:rgba(148,129,51,.9);margin-top:34px}
 .entrada-hint::after{content:'';display:block;width:34px;height:1px;background:linear-gradient(90deg,transparent,rgba(148,129,51,.6),transparent);margin:12px auto 0;animation:hintPulse 2.2s ease-in-out infinite}
 @keyframes hintPulse{0%,100%{opacity:.4;width:34px}50%{opacity:1;width:56px}}
@@ -910,7 +912,11 @@ section>*{position:relative;z-index:1}
     <p class="entrada-date">24 · Octubre · 2026</p>
     <p class="entrada-city">San Francisco del Rincón · Guanajuato</p>
     <div class="entrada-rings" aria-hidden="true">
-      <svg viewBox="0 0 92 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <span class="ring-flash"></span>
+      <span class="ring-spark ring-spark-1"></span>
+      <span class="ring-spark ring-spark-2"></span>
+      <span class="ring-spark ring-spark-3"></span>
+      <svg class="ring-svg" viewBox="0 0 92 54" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="ringGold" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stop-color="#c9b26a"/>
@@ -977,17 +983,7 @@ section>*{position:relative;z-index:1}
     <div class="h-amp-clip"><span class="h-amp" id="hAmp">y</span></div>
     <div class="h-clip"><span class="h-name" id="hN2">Francisco</span></div>
 
-    <div class="gline" style="margin-top:28px" id="hLine"></div>
-
-    <div class="h-date-wrap" id="hDate">
-      <p class="h-date">24 · Octubre · 2026</p>
-      <p class="h-city">San Francisco del Rincón · Guanajuato</p>
-    </div>
-  </div>
-
-  <div class="h-scroll" id="hScroll">
-    <div class="h-scroll-line"></div>
-    <span>Desliza</span>
+    <div class="gline" style="margin-top:22px" id="hLine"></div>
   </div>
 </section>
 
@@ -1471,11 +1467,37 @@ function initSwipeCarousel(trackId, dotsId, arrowSel){
     if (opened) return;
     opened = true;
     startMusicOnOpen();
-    prepareInvitation();
-    gsap.to(envScreen, {
-      opacity: 0, scale: 1.08, duration: 1.0, ease: 'power2.inOut',
-      onComplete: function () { envScreen.style.display = 'none'; }
+
+    var ringSvg = envScreen.querySelector('.ring-svg');
+    var flash   = envScreen.querySelector('.ring-flash');
+    var sparks  = envScreen.querySelectorAll('.ring-spark');
+    var hint    = envScreen.querySelector('.entrada-hint');
+    var dirs    = [{x:-48,y:-30},{x:52,y:-16},{x:6,y:40}];
+
+    gsap.to(hint, { opacity: 0, duration: 0.22, ease: 'power1.out' });
+
+    var tl = gsap.timeline({ onComplete: function () { envScreen.style.display = 'none'; } });
+
+    // 1 · destello dorado en los anillos + burst radial
+    tl.to(ringSvg, { scale: 1.16, duration: 0.34, ease: 'power2.out',
+          filter: 'drop-shadow(0 0 12px rgba(201,178,106,.95)) drop-shadow(0 0 26px rgba(148,129,51,.75)) brightness(1.55)' }, 0)
+      .fromTo(flash, { scale: 0, opacity: 0 },
+                     { scale: 1, opacity: 1, duration: 0.32, ease: 'power2.out' }, 0)
+      .to(flash, { scale: 2.2, opacity: 0, duration: 0.72, ease: 'power2.out' }, 0.32);
+
+    // chispas doradas que salen disparadas
+    sparks.forEach(function (sp, i) {
+      tl.fromTo(sp, { x: 0, y: 0, scale: 0, opacity: 1 },
+                    { x: dirs[i].x, y: dirs[i].y, scale: 1.5, opacity: 0, duration: 0.8, ease: 'power3.out' }, 0.16);
     });
+
+    // 2 · los anillos se asientan
+    tl.to(ringSvg, { scale: 1, duration: 0.5, ease: 'power2.inOut',
+          filter: 'drop-shadow(0 0 4px rgba(201,178,106,.45))' }, 0.42);
+
+    // 3 · revelar la invitación
+    tl.add(prepareInvitation, 0.56)
+      .to(envScreen, { opacity: 0, scale: 1.09, duration: 0.95, ease: 'power2.inOut' }, 0.62);
   }
 
   envScreen.addEventListener('click', openEntrada);
@@ -1504,7 +1526,7 @@ window.addEventListener('scroll', () => {
 
 /* ── HERO ANIMATIONS ───────────────────────────────── */
 function heroAnim() {
-  gsap.set(['#hWe','#hDiv','#hLine','#hDate','#hScroll'], { opacity: 0 });
+  gsap.set(['#hWe','#hDiv','#hLine'], { opacity: 0 });
   gsap.set(['#hN1','#hN2','#hAmp'], { yPercent: 110 });
 
   const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
@@ -1514,12 +1536,10 @@ function heroAnim() {
     .to('#hN1',    { yPercent: 0, duration: 1.1 }, .5)
     .to('#hAmp',   { yPercent: 0, duration: .9 }, .75)
     .to('#hN2',    { yPercent: 0, duration: 1.1 }, .9)
-    .to('#hLine',  { opacity: .7, duration: .7 }, 1.2)
-    .to('#hDate',  { opacity: 1, duration: .8 }, 1.35)
-    .to('#hScroll',{ opacity: 1, duration: .6 }, 1.8);
+    .to('#hLine',  { opacity: .7, duration: .7 }, 1.2);
 
   gsap.to('#heroBg', {
-    yPercent: 22, ease: 'none',
+    yPercent: 8, ease: 'none',
     scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
   });
 }
@@ -2035,8 +2055,10 @@ function initWheel() {
   var cards = ring.querySelectorAll('.wheel-card');
   var n = cards.length;
   if (!n) return;
-  // radio escalado según cantidad de fotos para que un anillo denso no se encime
-  var radius = Math.max(200, Math.min(n * 20, window.innerWidth * 0.95));
+  // radio calculado para que las tarjetas queden AL RAS (borde con borde), sin
+  // importar cuántas fotos haya: cuerda entre tarjetas ≈ ancho de tarjeta (+ pequeño gap)
+  var cardW = cards[0].offsetWidth || 190;
+  var radius = (cardW * 1.03) / (2 * Math.sin(Math.PI / n));
   var rot = 0, vel = 0, isDrag = false, startX = 0, startRot = 0, lastX = 0, rafId = null;
 
   cards.forEach(function (card, i) {
