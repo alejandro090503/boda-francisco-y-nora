@@ -273,8 +273,10 @@ section>*{position:relative;z-index:1}
   display:flex;flex-direction:column;align-items:center;
 }
 .h-we{
-  font-size:clamp(8px,2.2vw,10px);letter-spacing:clamp(6px,2vw,9px);
-  text-transform:uppercase;color:var(--gold);font-weight:500;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(15px,4.4vw,19px);letter-spacing:clamp(3px,1.3vw,6px);
+  text-transform:uppercase;color:var(--gold-lt);font-weight:600;
+  text-shadow:0 2px 10px rgba(0,0,0,.75),0 1px 3px rgba(0,0,0,.9);
 }
 .h-div{display:flex;align-items:center;gap:14px;margin:22px 0 8px;width:100%;justify-content:center}
 .h-div::before,.h-div::after{content:'';flex:1;max-width:65px;height:1px;background:linear-gradient(to right,transparent,var(--gold))}
@@ -794,10 +796,10 @@ section>*{position:relative;z-index:1}
 }
 .ft-dt{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(11px,3vw,14px);letter-spacing:clamp(4px,1.5vw,7px);
-  text-transform:uppercase;color:var(--cream);opacity:.3;margin-top:clamp(18px,5vw,24px);
+  font-size:clamp(13px,3.4vw,16px);letter-spacing:clamp(4px,1.5vw,7px);
+  text-transform:uppercase;color:var(--gold-lt);opacity:.95;font-weight:600;margin-top:clamp(18px,5vw,24px);
 }
-.ft-note{font-size:clamp(10px,2.6vw,12px);color:var(--cream);opacity:.2;margin-top:clamp(18px,5vw,24px);letter-spacing:1px;line-height:1.9}
+.ft-note{font-size:clamp(11px,2.8vw,13px);color:var(--cream);opacity:.5;margin-top:clamp(18px,5vw,24px);letter-spacing:1px;line-height:1.9}
 
 .el-sep{width:44px;height:1px;background:rgba(148,129,51,.15);margin:clamp(26px,7vw,36px) auto 16px}
 .el-credit{
@@ -933,7 +935,7 @@ section>*{position:relative;z-index:1}
 </div>
 <div id="env-flash"></div>
 
-<div id="main-content" style="visibility:hidden">
+<div id="main-content" style="opacity:0">
 <div id="prog"></div>
 
 <audio id="bgMusic" loop preload="auto" playsinline webkit-playsinline>
@@ -993,7 +995,7 @@ section>*{position:relative;z-index:1}
   <div class="quote-frame">
     <span class="quote-eyebrow">Nuestro camino</span>
     <span class="quote-mark" aria-hidden="true">&rdquo;</span>
-    <p class="quote-text">Hoy celebramos que el amor nos encontró en el momento perfecto. Elegimos caminar juntos, tomarnos de la mano y construir una vida donde el respeto, la complicidad y el amor sean siempre nuestro hogar.</p>
+    <p class="quote-text">Hoy celebramos que el amor nos encontró en el momento perfecto. Elegimos caminar juntos, tomarnos de la mano y construir una vida donde el respeto, la complicidad y el amor existan siempre en nuestro hogar.</p>
     <div class="quote-gline"></div>
     <p class="quote-sig">Nora y Francisco</p>
   </div>
@@ -1453,7 +1455,7 @@ function initSwipeCarousel(trackId, dotsId, arrowSel){
   function prepareInvitation() {
     if (invitationReady) return;
     invitationReady = true;
-    document.getElementById('main-content').style.visibility = 'visible';
+    document.getElementById('main-content').style.opacity = '1';
     heroAnim();
     spawnParticles();
     initBgOrbs();
@@ -1467,6 +1469,8 @@ function initSwipeCarousel(trackId, dotsId, arrowSel){
     if (opened) return;
     opened = true;
     startMusicOnOpen();
+    // Revela la invitación de inmediato (bajo la entrada); no depende del timeline
+    prepareInvitation();
 
     var ringSvg = envScreen.querySelector('.ring-svg');
     var flash   = envScreen.querySelector('.ring-flash');
@@ -1495,9 +1499,8 @@ function initSwipeCarousel(trackId, dotsId, arrowSel){
     tl.to(ringSvg, { scale: 1, duration: 0.5, ease: 'power2.inOut',
           filter: 'drop-shadow(0 0 4px rgba(201,178,106,.45))' }, 0.42);
 
-    // 3 · revelar la invitación
-    tl.add(prepareInvitation, 0.56)
-      .to(envScreen, { opacity: 0, scale: 1.09, duration: 0.95, ease: 'power2.inOut' }, 0.62);
+    // 3 · la entrada se desvanece revelando la invitación (ya renderizada debajo)
+    tl.to(envScreen, { opacity: 0, scale: 1.09, duration: 0.95, ease: 'power2.inOut' }, 0.62);
   }
 
   envScreen.addEventListener('click', openEntrada);
