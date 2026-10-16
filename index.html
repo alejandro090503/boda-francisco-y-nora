@@ -1338,7 +1338,7 @@ section>*{position:relative;z-index:1}
 
       <span class="lbl" style="margin-bottom:8px">Confirmación</span>
       <h2 class="ttl" style="font-size:clamp(28px,7vw,38px);margin-bottom:14px">¿Nos acompañas?</h2>
-      <p class="rsvp-text">Confirma tu asistencia antes del <strong style="color:var(--gold)">15 de Octubre de 2026</strong>. Nos encantará saber que estarás con nosotros.</p>
+      <p class="rsvp-text">Confirma tu asistencia antes del <strong style="color:var(--gold)">23 de Octubre de 2026</strong>. Nos encantará saber que estarás con nosotros.</p>
 
       <div id="rsvpGreeting"></div>
 
@@ -1363,7 +1363,7 @@ section>*{position:relative;z-index:1}
 
       <div class="rsvp-deadline">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5z"/></svg>
-        Fecha límite · 15 Oct 2026
+        Fecha límite · 23 Oct 2026
       </div>
     </div>
   </div>
@@ -1889,7 +1889,7 @@ function fireConfetti(originEl){
 function initRSVP(){
   const PANEL_API = 'https://panel-invitados.vercel.app/api/confirmar';
   const RSVP_URL  = 'https://boda-francisco-y-nora.vercel.app';
-  const DEADLINE  = new Date(2026, 9, 15, 23, 59, 59, 999); // 15 oct 2026
+  const DEADLINE  = new Date(2026, 9, 23, 23, 59, 59, 999); // 23 oct 2026
   const frozen    = Date.now() > DEADLINE.getTime();
   const params    = new URLSearchParams(location.search);
   const urlPara   = (params.get('para') || '').trim();
